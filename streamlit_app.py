@@ -109,6 +109,14 @@ def process_data(df_all_original, df_KSA):
     # Format the 'Date' column as 'dd/mm/yy'
     df_all["c_trans_date"] = df_all["c_trans_date"].dt.strftime('%d/%m/%y')
 
+    ### convert tv_spot_start_time_hour to 2:25 hours format, if not already.
+    df_all['tv_spot_start_time_hour'] = df_all['tv_spot_start_time_hour'].apply(lambda x: int(x))
+    distinct_values_in_spot_hour = df_all[['tv_spot_start_time_hour']].drop_duplicates()['tv_spot_start_time_hour'].to_list()
+    if 0 in distinct_values_in_spot_hour:
+        df_all.loc[df_all['tv_spot_start_time_hour'] == 0 , 'tv_spot_start_time_hour'] = 24
+    if 1 in distinct_values_in_spot_hour:
+        df_all.loc[df_all['tv_spot_start_time_hour'] == 1 , 'tv_spot_start_time_hour'] = 25
+
     columns_difference = set(df_KSA.columns).difference(set(df_all.columns))
 
     return df_all, columns_difference
