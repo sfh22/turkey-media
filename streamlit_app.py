@@ -126,14 +126,13 @@ def main():
 
     # Upload files
     uploaded_all_file = st.file_uploader("Upload Turkey Data File (Excel)", type=["xlsx"])
-    uploaded_ksa_file = st.file_uploader("Upload KSA Data File (Excel)", type=["xlsx"])
 
-    if uploaded_all_file and uploaded_ksa_file:
+    if uploaded_all_file:
         # Read the uploaded files into Pandas DataFrames
         df_all_original = pd.read_excel(uploaded_all_file, sheet_name="Total Spot Listesi")
         df_all = df_all_original.copy()
 
-        df_KSA_original = pd.read_excel(uploaded_ksa_file, sheet_name="March PAn Aab")
+        df_KSA_original = pd.read_excel('Haleon march Pan Arab TV Raw.xlsx', sheet_name="March PAn Aab")
         df_KSA = df_KSA_original.copy()
 
         # Process the data
